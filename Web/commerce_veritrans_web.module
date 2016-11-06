@@ -1,6 +1,6 @@
 <?php
 $rootplugin = dirname(dirname(__FILE__));
-require_once($rootplugin.'/libraries/veritrans-php/Veritrans.php'); 
+require_once($rootplugin.'/libraries/veritrans-php/Veritrans.php');
 
 // require_once('/../libraries/veritrans-php/Veritrans.php');
 /**
@@ -14,17 +14,17 @@ require_once($rootplugin.'/libraries/veritrans-php/Veritrans.php');
 function commerce_veritrans_web_commerce_payment_method_info() {
   $payment_methods = array();
   $payment = commerce_payment_method_instance_load('commerce_veritrans_web|commerce_payment_commerce_veritrans_web');
-  
+
   // if empty, set default
   if(!isset($payment['settings']['payment_label'])){
     $payment['settings']['payment_label'] = 'Payment via Veritrans';
   }
   else if($payment['settings']['payment_label'] == '' OR !$payment['settings']['payment_label']){
-    $payment['settings']['payment_label'] = 'Payment via Veritrans'; 
+    $payment['settings']['payment_label'] = 'Payment via Veritrans';
   }
 
   // add image
-  // $payment['settings']['payment_label'] = $payment['settings']['payment_label'].'<br><img alt="" src="http://www.w3schools.com/html/html5.gif"></img>'; 
+  // $payment['settings']['payment_label'] = $payment['settings']['payment_label'].'<br><img alt="" src="http://www.w3schools.com/html/html5.gif"></img>';
 
   $payment_methods['commerce_veritrans_web'] = array(
     'base' => 'commerce_veritrans_web',
@@ -32,6 +32,7 @@ function commerce_veritrans_web_commerce_payment_method_info() {
     'short_title' => t('VT-Web'),
     'display_title' => t($payment['settings']['payment_label']),
     'description' => t('Veritrans Payment Gateway for VT-Web'),
+    'active' => TRUE, // must have this to prevent Unknown payment method
     'terminal' => TRUE,
     'offsite' => TRUE,
     'offsite_autoredirect' => TRUE,
@@ -134,77 +135,77 @@ function commerce_veritrans_web_settings_form( $settings = NULL) {
 
   /*
    */
-   
+
   $form['payment_type_credit_card'] = array(
     '#type' => 'checkbox',
     '#title' => t('Credit Card'),
     '#default_value' => $settings['payment_type_credit_card'],
     '#description' => t('Enable Credit Card payment method'),
   );
-   
+
   $form['payment_type_mandiri_clickpay'] = array(
     '#type' => 'checkbox',
     '#title' => t('Mandiri ClickPay'),
     '#default_value' => $settings['payment_type_mandiri_clickpay'],
     '#description' => t('Enable Mandiri ClickPay payment method'),
   );
-  
+
   $form['payment_type_cimb_clicks'] = array(
     '#type' => 'checkbox',
     '#title' => t('Cimb Clicks'),
     '#default_value' => $settings['payment_type_cimb_clicks'],
     '#description' => t('Enable Cimb Clicks payment method'),
   );
-  
+
   $form['payment_type_bank_transfer'] = array(
     '#type' => 'checkbox',
     '#title' => t('Bank Transfer'),
     '#default_value' => $settings['payment_type_bank_transfer'],
     '#description' => t('Enable Bank Transfer payment method'),
   );
-  
+
   $form['payment_type_bri_epay'] = array(
     '#type' => 'checkbox',
     '#title' => t('BRI Epay'),
     '#default_value' => $settings['payment_type_bri_epay'],
     '#description' => t('Enable BRI Epay payment method'),
   );
-  
+
   $form['payment_type_telkomsel_cash'] = array(
     '#type' => 'checkbox',
     '#title' => t('Telkomsel Cash'),
     '#default_value' => $settings['payment_type_telkomsel_cash'],
     '#description' => t('Enable Telkomsel Cash payment method'),
   );
-  
+
   $form['payment_type_xl_tunai'] = array(
     '#type' => 'checkbox',
     '#title' => t('XL Tunai'),
     '#default_value' => $settings['payment_type_xl_tunai'],
     '#description' => t('Enable XL Tunai payment method'),
   );
-  
+
   $form['payment_type_echannel'] = array(
     '#type' => 'checkbox',
     '#title' => t('Mandiri BillPayment'),
     '#default_value' => $settings['payment_type_echannel'],
     '#description' => t('Enable Mandiri BillPayment payment method'),
   );
-  
+
   $form['payment_type_bbm_money'] = array(
     '#type' => 'checkbox',
     '#title' => t('BBM Money'),
     '#default_value' => $settings['payment_type_bbm_money'],
     '#description' => t('Enable BBM Money payment method'),
   );
-  
+
   $form['payment_type_cstore'] = array(
     '#type' => 'checkbox',
     '#title' => t('Indomaret'),
     '#default_value' => $settings['payment_type_cstore'],
     '#description' => t('Enable indomaret payment method'),
   );
-  
+
   $form['payment_indosat_dompetku'] = array(
     '#type' => 'checkbox',
     '#title' => t('Indosat Dompetku'),
@@ -255,7 +256,7 @@ function commerce_veritrans_web_redirect_form($form, &$form_state, $order, $paym
 }
 
 /**
- * 
+ *
  * @param object $order
  *   The fully loaded order being paid for.
  * @param array $settings

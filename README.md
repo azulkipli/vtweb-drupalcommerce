@@ -8,8 +8,26 @@ Let your Drupal Commerce store integrated with Veritrans VT-WEB payment gateway.
 ### Description
 This is the official Veritrans extension for the Drupal Commerce E-commerce platform.
 
+### Add active key TRUE
+'active' => TRUE on $payment_methods array
+```PHP
+
+......
+
+$payment_methods['commerce_veritrans_web'] = array(
+  'base' => 'commerce_veritrans_web',
+  'title' => t('Veritrans VT-Web'),
+  'short_title' => t('VT-Web'),
+  'display_title' => t($payment['settings']['payment_label']),
+  'description' => t('Veritrans Payment Gateway for VT-Web'),
+  'active' => TRUE, // must have this to prevent Unknown payment method
+  'terminal' => TRUE,
+
+  ......
+```
+
 ### Version
-7.x-1.1 
+7.x-1.1
 (for Drupal v 7.x)
 
 ### Requirements
@@ -24,7 +42,7 @@ The following plugin is tested under following environment:
 The manual installation method involves downloading our feature-rich plugin and uploading it to your webserver via your favourite FTP application.
 
 1. Download the plugin file to your computer and unzip it, rename folder to ``commerce_veritrans``
-2. Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your Drupal modules installation's ``[Drupal folder]/sites/all/modules/`` directory. 
+2. Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your Drupal modules installation's ``[Drupal folder]/sites/all/modules/`` directory.
 
 (Refer to this link for more info on installing module for drupal: [Drupal module install ](https://www.drupal.org/node/70151))
 
